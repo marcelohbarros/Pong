@@ -1,0 +1,7 @@
+source/bin
+source/debug
+
+*.cbp
+*.depend
+*.layout
+*.dll
