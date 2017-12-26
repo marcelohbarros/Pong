@@ -10,7 +10,7 @@ public:
     ~Match();
     void handleEvents();
     void logic(Game *game);
-    void render();
+    void render(Game *game);
 };
 
 #endif //MATCH_H_INCLUDED

@@ -1,5 +1,7 @@
 #ifndef GAME_H_INCLUDED
 #define GAME_H_INCLUDED
+
+#include <SDL.h>
 #include "State.h"
 
 class State;
@@ -10,8 +12,10 @@ private:
     int currentState;
     int nextState;
     State *state;
+    SDL_Window *window;
 
 public:
+    SDL_Renderer *renderer;
     Game();
     ~Game();
     bool init();

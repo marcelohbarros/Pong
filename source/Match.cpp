@@ -21,7 +21,7 @@ void Match::logic(Game *game)
     return;
 }
 
-void Match::render()
+void Match::render(Game *game)
 {
     printf("I'm now at match\n");
 }

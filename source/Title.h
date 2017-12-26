@@ -10,7 +10,7 @@ public:
     ~Title();
     void handleEvents();
     void logic(Game *game);
-    void render();
+    void render(Game *game);
 };
 
 #endif //TITLE_H_INCLUDED

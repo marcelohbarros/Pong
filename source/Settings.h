@@ -10,7 +10,7 @@ public:
     ~Settings();
     void handleEvents();
     void logic(Game *game);
-    void render();
+    void render(Game *game);
 };
 
 #endif //SETTINGS_H_INCLUDED

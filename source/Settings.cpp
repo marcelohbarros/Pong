@@ -21,7 +21,7 @@ void Settings::logic(Game *game)
     return;
 }
 
-void Settings::render()
+void Settings::render(Game *game)
 {
     printf("I'm now at settings\n");
 }

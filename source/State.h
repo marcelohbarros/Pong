@@ -9,7 +9,7 @@ class State
 public:
     virtual void handleEvents()= 0;
     virtual void logic(Game *game) = 0;
-    virtual void render() = 0;
+    virtual void render(Game *game) = 0;
     virtual ~State(){};
 };
 

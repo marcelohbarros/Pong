@@ -21,7 +21,7 @@ void Title::logic(Game *game)
     return;
 }
 
-void Title::render()
+void Title::render(Game *game)
 {
     printf("I'm now at title\n");
 }
