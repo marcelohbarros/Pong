@@ -1,12 +1,15 @@
 #ifndef MATCH_H_INCLUDED
 #define MATCH_H_INCLUDED
+#include <SDL.h>
 #include "State.h"
-
+#include "Texture.h"
 
 class Match : public State
 {
+private:
+    Texture background;
 public:
-    Match();
+    Match(SDL_Renderer *renderer);
     ~Match();
     void handleEvents();
     void logic(Game *game);

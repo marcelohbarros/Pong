@@ -13,14 +13,15 @@ private:
     int nextState;
     State *state;
     SDL_Window *window;
+    SDL_Renderer *renderer;
 
 public:
-    SDL_Renderer *renderer;
     Game();
     ~Game();
     bool init();
     void quit();
     bool finished();
+    SDL_Renderer *getRenderer();
     void changeState();
     void setState(int newState);
     void handleEvents();

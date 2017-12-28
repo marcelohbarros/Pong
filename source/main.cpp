@@ -1,10 +1,8 @@
-#include <stdio.h>
-#include <iostream>
 #include "Game.h"
 
 int main(int argc, char** args)
 {
-    Game *game = new Game();
+    Game *game;
     if(game->init())
     {
         while(!game->finished())

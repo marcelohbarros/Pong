@@ -78,14 +78,16 @@ bool Game::init()
         printf("Renderer not created! SDL error: %s\n", SDL_GetError());
         return false;
     }
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-    state = new Title();
+    state = new Title(renderer);
     printf("Initiating\n");
     return true;
 }
 
 void Game::quit()
 {
+    delete state;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     renderer = NULL;
@@ -101,6 +103,11 @@ void Game::quit()
 bool Game::finished()
 {
     return (currentState == QUIT);
+}
+
+SDL_Renderer *Game::getRenderer()
+{
+    return renderer;
 }
 
 void Game::setState(int newState)
@@ -124,7 +131,7 @@ void Game::changeState()
         {
             case TITLE:
                 printf("Going to title\n");
-                state = new Title();
+                state = new Title(renderer);
                 break;
 
             case SETTINGS:
@@ -134,7 +141,7 @@ void Game::changeState()
 
             case MATCH:
                 printf("Going to match\n");
-                state = new Match();
+                state = new Match(renderer);
                 break;
 
             case QUIT:
