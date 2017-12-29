@@ -12,7 +12,7 @@ Match::~Match()
     background.free();
 }
 
-void Match::handleEvents()
+void Match::handleEvents(Game *game)
 {
 }
 

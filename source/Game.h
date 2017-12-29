@@ -16,6 +16,8 @@ private:
     SDL_Renderer *renderer;
 
 public:
+    enum GameStates {NONE, TITLE, SETTINGS, MATCH, QUIT};
+
     Game();
     ~Game();
     bool init();

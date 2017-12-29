@@ -11,7 +11,7 @@ private:
 public:
     Match(SDL_Renderer *renderer);
     ~Match();
-    void handleEvents();
+    void handleEvents(Game *game);
     void logic(Game *game);
     void render(Game *game);
 };

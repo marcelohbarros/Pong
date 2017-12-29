@@ -10,7 +10,7 @@ Settings::~Settings()
 {
 }
 
-void Settings::handleEvents()
+void Settings::handleEvents(Game *game)
 {
 }
 

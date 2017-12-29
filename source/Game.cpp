@@ -11,15 +11,6 @@
 const int SCREEN_WIDTH_SMALLSCREEN = 960;
 const int SCREEN_HEIGHT_SMALLSCREEN = 540;
 
-enum GameStates
-{
-    NONE,
-    TITLE,
-    SETTINGS,
-    MATCH,
-    QUIT
-};
-
 Game::Game()
 {
     currentState = TITLE;
@@ -161,7 +152,7 @@ void Game::changeState()
 
 void Game::handleEvents()
 {
-    state->handleEvents();
+    state->handleEvents(this);
 }
 
 void Game::logic()
