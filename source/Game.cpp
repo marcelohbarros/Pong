@@ -4,12 +4,10 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include "Game.h"
+#include "config.h"
 #include "Title.h"
 #include "Settings.h"
 #include "Match.h"
-
-const int SCREEN_WIDTH_SMALLSCREEN = 960;
-const int SCREEN_HEIGHT_SMALLSCREEN = 540;
 
 Game::Game()
 {
@@ -24,6 +22,12 @@ Game::~Game()
 
 bool Game::init()
 {
+    if(!config::loadConfigFile())
+    {
+        printf("Warning! Configuration file not loaded.\n");
+        config::setDefaultValues();
+    }
+
     if(SDL_Init(SDL_INIT_EVERYTHING) == -1)
     {
         printf("SDL not initialized: %s\n", SDL_GetError());
@@ -45,7 +49,7 @@ bool Game::init()
         return false;
     }
 
-    window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH_SMALLSCREEN, SCREEN_HEIGHT_SMALLSCREEN, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, config::screenWidth, config::screenHeight, SDL_WINDOW_SHOWN);
     if(window == NULL)
     {
         printf("Window not created! SDL error: %s\n", SDL_GetError());
@@ -122,7 +126,7 @@ void Game::changeState()
         {
             case TITLE:
                 printf("Going to title\n");
-                state = new Title(renderer);
+                state = new Title(renderer, currentState);
                 break;
 
             case SETTINGS:

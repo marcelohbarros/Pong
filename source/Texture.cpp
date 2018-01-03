@@ -2,6 +2,7 @@
 #include <SDL_image.h>
 #include <string>
 #include "Texture.h"
+#include "config.h"
 
 Texture::Texture()
 {
@@ -40,7 +41,10 @@ void Texture::free()
 
 void Texture::render(SDL_Renderer *renderer, int x, int y)
 {
-    SDL_Rect destin = {x * 5, y * 5, width * 5, height * 5}; //Scale to window size
+    SDL_Rect destin = {x * (config::screenWidth/config::UNSCALED_SCREEN_WIDTH),
+                       y * (config::screenHeight/config::UNSCALED_SCREEN_HEIGHT),
+                       width * (config::screenWidth/config::UNSCALED_SCREEN_WIDTH),
+                       height * (config::screenHeight/config::UNSCALED_SCREEN_HEIGHT)}; //Scale to window size
     SDL_RenderCopy(renderer, texture, NULL, &destin);
     return;
 }

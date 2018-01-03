@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <SDL.h>
 #include "Title.h"
 #include "Button.h"
@@ -10,28 +9,38 @@ enum buttons
     QUIT_BUTTON
 };
 
-Title::Title(SDL_Renderer *renderer)
+Title::Title(SDL_Renderer *renderer, int previousState)
 {
-    selectedButton = PLAY_BUTTON;
     background.loadTexture(renderer, "media/Title.png");
 
     button[PLAY_BUTTON].loadSelectedTexture(renderer, "media/PlayButtonSelected.png");
     button[PLAY_BUTTON].loadUnselectedTexture(renderer, "media/PlayButtonUnselected.png");
-    button[PLAY_BUTTON].setPosition(72, 34);
-    button[PLAY_BUTTON].select();
+    button[PLAY_BUTTON].setPosition(73, 34);
 
     button[SETTINGS_BUTTON].loadSelectedTexture(renderer, "media/SettingsButtonSelected.png");
     button[SETTINGS_BUTTON].loadUnselectedTexture(renderer, "media/SettingsButtonUnselected.png");
-    button[SETTINGS_BUTTON].setPosition(72, 52);
+    button[SETTINGS_BUTTON].setPosition(73, 52);
 
     button[QUIT_BUTTON].loadSelectedTexture(renderer, "media/QuitButtonSelected.png");
     button[QUIT_BUTTON].loadUnselectedTexture(renderer, "media/QuitButtonUnselected.png");
-    button[QUIT_BUTTON].setPosition(72, 70);
+    button[QUIT_BUTTON].setPosition(73, 70);
+
+    switch(previousState)
+    {
+        case Game::NONE:
+        case Game::MATCH:
+            button[PLAY_BUTTON].select();
+            selectedButton = PLAY_BUTTON;
+            break;
+        case Game::SETTINGS:
+            button[SETTINGS_BUTTON].select();
+            selectedButton = SETTINGS_BUTTON;
+            break;
+    }
 }
 
 Title::~Title()
 {
-    background.free();
 }
 
 void Title::handleEvents(Game *game)

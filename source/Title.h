@@ -12,7 +12,7 @@ private:
     Button button[3];
     int selectedButton;
 public:
-    Title(SDL_Renderer *renderer);
+    Title(SDL_Renderer *renderer, int previousState = Game::NONE);
     ~Title();
     void handleEvents(Game *game);
     void logic(Game *game);
