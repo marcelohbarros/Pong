@@ -9,21 +9,18 @@ enum buttons
     QUIT_BUTTON
 };
 
-Title::Title(SDL_Renderer *renderer, int previousState)
+Title::Title(SDL_Renderer *renderer, int previousState) : button{{73, 34}, {73, 52}, {73, 70}}
 {
     background.loadTexture(renderer, "media/Title.png");
 
     button[PLAY_BUTTON].loadSelectedTexture(renderer, "media/PlayButtonSelected.png");
     button[PLAY_BUTTON].loadUnselectedTexture(renderer, "media/PlayButtonUnselected.png");
-    button[PLAY_BUTTON].setPosition(73, 34);
 
     button[SETTINGS_BUTTON].loadSelectedTexture(renderer, "media/SettingsButtonSelected.png");
     button[SETTINGS_BUTTON].loadUnselectedTexture(renderer, "media/SettingsButtonUnselected.png");
-    button[SETTINGS_BUTTON].setPosition(73, 52);
 
     button[QUIT_BUTTON].loadSelectedTexture(renderer, "media/QuitButtonSelected.png");
     button[QUIT_BUTTON].loadUnselectedTexture(renderer, "media/QuitButtonUnselected.png");
-    button[QUIT_BUTTON].setPosition(73, 70);
 
     switch(previousState)
     {

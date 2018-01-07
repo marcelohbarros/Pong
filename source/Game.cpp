@@ -76,7 +76,6 @@ bool Game::init()
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
     state = new Title(renderer);
-    printf("Initiating\n");
     return true;
 }
 
@@ -92,7 +91,6 @@ void Game::quit()
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
-    printf("Quiting\n");
 }
 
 bool Game::finished()
@@ -125,31 +123,22 @@ void Game::changeState()
         switch(nextState)
         {
             case TITLE:
-                printf("Going to title\n");
                 state = new Title(renderer, currentState);
                 break;
 
             case SETTINGS:
-                printf("Going to settings\n");
                 state = new Settings();
                 break;
 
             case MATCH:
-                printf("Going to match\n");
                 state = new Match(renderer);
                 break;
 
             case QUIT:
-                printf("Going to QUIT state\n");
-                break;
-
-            default:
-                printf("Invalid state!");
                 break;
         }
         currentState = nextState;
         nextState = NONE;
-        printf("Changing state to %d\n", currentState);
     }
     return;
 }

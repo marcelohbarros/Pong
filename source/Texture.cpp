@@ -41,10 +41,13 @@ void Texture::free()
 
 void Texture::render(SDL_Renderer *renderer, int x, int y)
 {
-    SDL_Rect destin = {x * (config::screenWidth/config::UNSCALED_SCREEN_WIDTH),
-                       y * (config::screenHeight/config::UNSCALED_SCREEN_HEIGHT),
-                       width * (config::screenWidth/config::UNSCALED_SCREEN_WIDTH),
-                       height * (config::screenHeight/config::UNSCALED_SCREEN_HEIGHT)}; //Scale to window size
+    //Scale to window size
+    SDL_Rect destin = {
+        x * (config::screenWidth/config::UNSCALED_SCREEN_WIDTH),
+        y * (config::screenHeight/config::UNSCALED_SCREEN_HEIGHT),
+        width * (config::screenWidth/config::UNSCALED_SCREEN_WIDTH),
+        height * (config::screenHeight/config::UNSCALED_SCREEN_HEIGHT)
+    };
     SDL_RenderCopy(renderer, texture, NULL, &destin);
     return;
 }

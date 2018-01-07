@@ -3,11 +3,22 @@
 #include <SDL.h>
 #include "State.h"
 #include "Texture.h"
+#include "Paddle.h"
+#include "Ball.h"
 
 class Match : public State
 {
 private:
     Texture background;
+    Paddle *player1Paddle;
+    Paddle *player2Paddle;
+    Ball *ball;
+    int player1Score;
+    int player2Score;
+    Timer startTimer;
+    Timer goalTimer;
+    bool started;
+    bool playing;
 public:
     Match(SDL_Renderer *renderer);
     ~Match();

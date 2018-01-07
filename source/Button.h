@@ -14,11 +14,10 @@ private:
     int height;
     bool selected;
 public:
-    Button();
+    Button(int x_, int y_);
     ~Button();
     void loadSelectedTexture(SDL_Renderer *renderer, std::string path);
     void loadUnselectedTexture(SDL_Renderer *renderer, std::string path);
-    void setPosition(int x, int y);
     void select();
     void unselect();
     bool isSelected();

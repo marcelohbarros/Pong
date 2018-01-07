@@ -2,10 +2,10 @@
 #include "Button.h"
 #include "Texture.h"
 
-Button::Button()
+Button::Button(int x_, int y_)
 {
-    x = 0;
-    y = 0;
+    x = x_;
+    y = y_;
     width = 0;
     height = 0;
     selected = false;
@@ -31,12 +31,6 @@ void Button::loadUnselectedTexture(SDL_Renderer *renderer, std::string path)
     width = unselectedTexture.getWidth();
     height = unselectedTexture.getHeight();
     return;
-}
-
-void Button::setPosition(int x, int y)
-{
-    this->x = x;
-    this->y = y;
 }
 
 void Button::select()
