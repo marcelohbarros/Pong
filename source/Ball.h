@@ -15,17 +15,17 @@ private:
     float xSpeed;
     float ySpeed;
     Timer timer;
-    bool yCollided;
+    bool collision;
+    bool checkCollision(FloatRect paddle);
 public:
     enum Player {NONE, PLAYER_1, PLAYER_2};
 
-    Ball();
     Ball(int x_, int y_);
-    bool checkCollision(FloatRect paddle);
     void move(FloatRect paddle1, FloatRect paddle2);
     void render(SDL_Renderer *renderer);
     int goal();
     FloatRect getBallBox();
+    bool collided();
 };
 
 #endif // BALL_H_INCLUDED

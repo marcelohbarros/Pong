@@ -1,6 +1,7 @@
 #ifndef MATCH_H_INCLUDED
 #define MATCH_H_INCLUDED
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include "State.h"
 #include "Texture.h"
 #include "Paddle.h"
@@ -19,6 +20,8 @@ private:
     Timer goalTimer;
     bool started;
     bool playing;
+    Mix_Chunk *goal;
+    Mix_Chunk *hit;
 public:
     Match(SDL_Renderer *renderer);
     ~Match();

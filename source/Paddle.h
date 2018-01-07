@@ -17,10 +17,10 @@ private:
     bool upButtonPressed;
     bool downButtonPressed;
     Timer timer;
-public:
-    Paddle(int x_ = 0, int y_ = 0, int player = 1);
-    void handleInput(SDL_Event e);
     bool checkCollision(FloatRect ball);
+public:
+    Paddle(int x_, int y_, int player);
+    void handleInput(SDL_Event e);
     void move(FloatRect ball);
     void render(SDL_Renderer *renderer);
     FloatRect getPaddleBox();

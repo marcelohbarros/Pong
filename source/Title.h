@@ -1,6 +1,7 @@
 #ifndef TITLE_H_INCLUDED
 #define TITLE_H_INCLUDED
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include "State.h"
 #include "Texture.h"
 #include "Button.h"
@@ -11,6 +12,11 @@ private:
     Texture background;
     Button button[3];
     int selectedButton;
+    Mix_Chunk *changeSelection;
+    Mix_Chunk *select;
+    bool changedState;
+    bool playedAudio;
+    int nextState;
 public:
     Title(SDL_Renderer *renderer, int previousState = Game::NONE);
     ~Title();

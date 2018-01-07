@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include "Title.h"
 #include "Button.h"
 
@@ -34,10 +35,20 @@ Title::Title(SDL_Renderer *renderer, int previousState) : button{{73, 34}, {73, 
             selectedButton = SETTINGS_BUTTON;
             break;
     }
+
+    changeSelection = Mix_LoadWAV("media/ChangeSelection.wav");
+    select = Mix_LoadWAV("media/Select.wav");
+    nextState = Game::NONE;
+    changedState = false;
+    playedAudio = false;
 }
 
 Title::~Title()
 {
+    Mix_FreeChunk(changeSelection);
+    changeSelection = NULL;
+    Mix_FreeChunk(select);
+    select = NULL;
 }
 
 void Title::handleEvents(Game *game)
@@ -47,7 +58,8 @@ void Title::handleEvents(Game *game)
     {
         if(e.type == SDL_QUIT)
         {
-            game->setState(Game::QUIT);
+            changedState = true;
+            nextState = Game::QUIT;
         }
         else if(e.type == SDL_KEYDOWN)
         {
@@ -83,16 +95,17 @@ void Title::handleEvents(Game *game)
             }
             else if(e.key.keysym.sym == SDLK_RETURN)
             {
+                changedState = true;
                 switch(selectedButton)
                 {
                     case PLAY_BUTTON:
-                        game->setState(Game::MATCH);
+                        nextState = Game::MATCH;
                         break;
                     case SETTINGS_BUTTON:
-                        game->setState(Game::SETTINGS);
+                        nextState = Game::SETTINGS;
                         break;
                     case QUIT_BUTTON:
-                        game->setState(Game::QUIT);
+                        nextState = Game::QUIT;
                         break;
                 }
             }
@@ -100,15 +113,28 @@ void Title::handleEvents(Game *game)
     }
 }
 
-//Change buttons if selectedButton was changed
+//Change buttons if selectedButton was changed, then play audio if a button was selected
 void Title::logic(Game *game)
 {
-    if(!button[selectedButton].isSelected())
+    if(!changedState)
     {
-        button[PLAY_BUTTON].unselect();
-        button[SETTINGS_BUTTON].unselect();
-        button[QUIT_BUTTON].unselect();
-        button[selectedButton].select();
+        if(!button[selectedButton].isSelected())
+        {
+            Mix_PlayChannel(-1, changeSelection, 0);
+            button[PLAY_BUTTON].unselect();
+            button[SETTINGS_BUTTON].unselect();
+            button[QUIT_BUTTON].unselect();
+            button[selectedButton].select();
+        }
+    }
+    else if(!playedAudio && nextState != Game::QUIT)
+    {
+        Mix_PlayChannel(-1, select, 0);
+        playedAudio = true;
+    }
+    else if(Mix_Playing(-1) == 0)
+    {
+        game->setState(nextState);
     }
     return;
 }

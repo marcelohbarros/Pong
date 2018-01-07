@@ -30,7 +30,7 @@ Ball::Ball(int x_, int y_)
     xSpeed = cosf(angle) * totalSpeed;
     ySpeed = sinf(angle) * totalSpeed;
 
-    yCollided = false;
+    collision = false;
 }
 
 bool Ball::checkCollision(FloatRect paddle)
@@ -59,12 +59,13 @@ bool Ball::checkCollision(FloatRect paddle)
 
 void Ball::move(FloatRect paddle1, FloatRect paddle2)
 {
+    collision = false;
     y += ySpeed * (SDL_GetTicks() - timer.getTicks()) * 0.001;
 
     //Moved into a paddle in y
     if(checkCollision(paddle1))
     {
-        yCollided = true;
+        collision = true;
         ySpeed = -ySpeed;
         if(y < paddle1.y)
         {
@@ -75,9 +76,9 @@ void Ball::move(FloatRect paddle1, FloatRect paddle2)
             y = paddle1.y + paddle1.h + 0.1;
         }
     }
-    if(checkCollision(paddle2))
+    else if(checkCollision(paddle2))
     {
-        yCollided = true;
+        collision = true;
         ySpeed = -ySpeed;
         if(y < paddle2.y)
         {
@@ -94,6 +95,7 @@ void Ball::move(FloatRect paddle1, FloatRect paddle2)
     //Moved into a paddle in x
     if(checkCollision(paddle1))
     {
+        collision = true;
         totalSpeed = totalSpeed * 1.03;
         float angle = ((y - (paddle1.y - size)) / (paddle1.h + size)) * 120 - 60; //Angle between -60 and 60 degrees
         angle = angle * 2 * 3.141592 / 360;
@@ -101,8 +103,9 @@ void Ball::move(FloatRect paddle1, FloatRect paddle2)
         ySpeed = sinf(angle) * totalSpeed;
         x = paddle1.x + paddle1.w + 0.1;
     }
-    if(checkCollision(paddle2))
+    else if(checkCollision(paddle2))
     {
+        collision = true;
         totalSpeed = totalSpeed * 1.03;
         float angle = -((y - (paddle2.y - size)) / (paddle2.h + size)) * 120 - 120; //Angle between 120 and 240 degrees
         angle = angle * 2 * 3.141592 / 360;
@@ -156,4 +159,9 @@ int Ball::goal()
 FloatRect Ball::getBallBox()
 {
     return {x, y, size, size};
+}
+
+bool Ball::collided()
+{
+    return collision;
 }

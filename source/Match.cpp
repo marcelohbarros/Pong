@@ -12,6 +12,8 @@ Match::Match(SDL_Renderer *renderer) :
     startTimer.update();
     started = false;
     playing = false;
+    goal = Mix_LoadWAV("media/Goal.wav");
+    hit = Mix_LoadWAV("media/Hit.wav");
 }
 
 Match::~Match()
@@ -19,6 +21,10 @@ Match::~Match()
     delete player1Paddle;
     delete player2Paddle;
     delete ball;
+    Mix_FreeChunk(goal);
+    goal = NULL;
+    Mix_FreeChunk(hit);
+    hit = NULL;
 }
 
 void Match::handleEvents(Game *game)
@@ -67,6 +73,7 @@ void Match::logic(Game *game)
         player2Paddle = new Paddle(177, 44, 2);
         playing = false;
         goalTimer.update();
+        Mix_PlayChannel(-1, goal, 0);
     }
 
     //Wait 1 second before start and 0.5 seconds after goals
@@ -87,6 +94,10 @@ void Match::logic(Game *game)
         player1Paddle->move(ball->getBallBox());
         player2Paddle->move(ball->getBallBox());
         ball->move(player1Paddle->getPaddleBox(), player2Paddle->getPaddleBox());
+        if(ball->collided())
+        {
+            Mix_PlayChannel(-1, hit, 0);
+        }
     }
     return;
 }

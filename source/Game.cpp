@@ -43,7 +43,7 @@ bool Game::init()
         printf("SDL TTF not initialized: %s\n", TTF_GetError());
         return false;
     }
-    if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048) == -1)
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) == -1)
     {
         printf("SDL Mixer not initialized: %s\n", Mix_GetError());
         return false;
