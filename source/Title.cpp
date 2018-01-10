@@ -10,7 +10,7 @@ enum buttons
     QUIT_BUTTON
 };
 
-Title::Title(SDL_Renderer *renderer, int previousState) : button{{73, 34}, {73, 52}, {73, 70}}
+Title::Title(SDL_Renderer *renderer, int previousState) : button{{73, 36}, {73, 55}, {73, 74}}
 {
     background.loadTexture(renderer, "media/Title.png");
 

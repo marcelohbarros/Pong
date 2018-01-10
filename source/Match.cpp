@@ -1,5 +1,7 @@
 #include <SDL.h>
 #include <stdio.h>
+#include <sstream>
+#include <string>
 #include "Match.h"
 
 Match::Match(SDL_Renderer *renderer) :
@@ -14,6 +16,13 @@ Match::Match(SDL_Renderer *renderer) :
     playing = false;
     goal = Mix_LoadWAV("media/Goal.wav");
     hit = Mix_LoadWAV("media/Hit.wav");
+    numberFont = TTF_OpenFont("media/NumberHoffont.ttf", 24);
+    std::stringstream ssPlayer1;
+    ssPlayer1 << player1Score;
+    std::stringstream ssPlayer2;
+    ssPlayer2 << player2Score;
+    player1ScoreTexture.loadTexture(renderer, numberFont, ssPlayer1.str());
+    player2ScoreTexture.loadTexture(renderer, numberFont, ssPlayer2.str());
 }
 
 Match::~Match()
@@ -25,6 +34,8 @@ Match::~Match()
     goal = NULL;
     Mix_FreeChunk(hit);
     hit = NULL;
+    TTF_CloseFont(numberFont);
+    numberFont = NULL;
 }
 
 void Match::handleEvents(Game *game)
@@ -59,12 +70,16 @@ void Match::logic(Game *game)
         if(ball->goal() == Ball::PLAYER_1)
         {
             player1Score ++;
-            printf("%d-%d\n", player1Score, player2Score);
+            std::stringstream ss;
+            ss << player1Score;
+            player1ScoreTexture.loadTexture(game->getRenderer(), numberFont, ss.str());
         }
         else
         {
             player2Score++;
-            printf("%d-%d\n", player1Score, player2Score);
+            std::stringstream ss;
+            ss << player2Score;
+            player2ScoreTexture.loadTexture(game->getRenderer(), numberFont, ss.str());
         }
         delete ball;
         delete player1Paddle;
@@ -107,6 +122,8 @@ void Match::render(Game *game)
     SDL_SetRenderDrawColor(game->getRenderer(), 255, 255, 255, 255);
     SDL_RenderClear(game->getRenderer());
     background.render(game->getRenderer());
+    player1ScoreTexture.render(game->getRenderer(), config::UNSCALED_SCREEN_WIDTH/2 + 1 - 14 - player1ScoreTexture.getWidth(), 4);
+    player2ScoreTexture.render(game->getRenderer(), config::UNSCALED_SCREEN_WIDTH/2 + 1 + 14, 4);
     player1Paddle->render(game->getRenderer());
     player2Paddle->render(game->getRenderer());
     if (playing)

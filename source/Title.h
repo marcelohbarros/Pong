@@ -3,13 +3,13 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include "State.h"
-#include "Texture.h"
+#include "ImageTexture.h"
 #include "Button.h"
 
 class Title : public State
 {
 private:
-    Texture background;
+    ImageTexture background;
     Button button[3];
     int selectedButton;
     Mix_Chunk *changeSelection;

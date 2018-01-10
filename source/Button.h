@@ -1,13 +1,13 @@
 #ifndef BUTTON_H_INCLUDED
 #define BUTTON_H_INCLUDED
 #include <SDL.h>
-#include "Texture.h"
+#include "ImageTexture.h"
 
 class Button
 {
 private:
-    Texture selectedTexture;
-    Texture unselectedTexture;
+    ImageTexture selectedTexture;
+    ImageTexture unselectedTexture;
     int x;
     int y;
     int width;

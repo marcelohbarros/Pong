@@ -1,33 +1,34 @@
 #include <SDL.h>
-#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <string>
-#include "Texture.h"
+#include "TextTexture.h"
 #include "config.h"
 
-Texture::Texture()
+TextTexture::TextTexture()
 {
     texture = NULL;
     width = 0;
     height = 0;
 }
 
-Texture::~Texture()
+TextTexture::~TextTexture()
 {
     free();
 }
 
-void Texture::loadTexture(SDL_Renderer *renderer, std::string path)
+void TextTexture::loadTexture(SDL_Renderer *renderer, TTF_Font *font, std::string text_, SDL_Color color)
 {
     free();
-    SDL_Surface *surface = IMG_Load(path.c_str());
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text_.c_str(), color);
     texture = SDL_CreateTextureFromSurface(renderer, surface);
     width = surface->w;
     height = surface->h;
+    text = text_;
     SDL_FreeSurface(surface);
     return;
 }
 
-void Texture::free()
+void TextTexture::free()
 {
     if(texture != NULL)
     {
@@ -39,7 +40,7 @@ void Texture::free()
     return;
 }
 
-void Texture::render(SDL_Renderer *renderer, int x, int y)
+void TextTexture::render(SDL_Renderer *renderer, int x, int y)
 {
     //Scale to window size
     SDL_Rect destin = {
@@ -52,12 +53,17 @@ void Texture::render(SDL_Renderer *renderer, int x, int y)
     return;
 }
 
-int Texture::getWidth()
+int TextTexture::getWidth()
 {
     return width;
 }
 
-int Texture::getHeight()
+int TextTexture::getHeight()
 {
     return height;
+}
+
+std::string TextTexture::getText()
+{
+    return text;
 }

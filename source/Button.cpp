@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include "Button.h"
-#include "Texture.h"
+#include "ImageTexture.h"
 
 Button::Button(int x_, int y_)
 {
