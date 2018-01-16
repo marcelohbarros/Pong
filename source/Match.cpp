@@ -28,12 +28,17 @@ Match::Match(SDL_Renderer *renderer) :
 Match::~Match()
 {
     delete player1Paddle;
+    player1Paddle = NULL;
     delete player2Paddle;
+    player2Paddle = NULL;
     delete ball;
+    ball = NULL;
+
     Mix_FreeChunk(goal);
     goal = NULL;
     Mix_FreeChunk(hit);
     hit = NULL;
+
     TTF_CloseFont(numberFont);
     numberFont = NULL;
 }
@@ -52,6 +57,10 @@ void Match::handleEvents(Game *game)
             if(e.key.keysym.sym == SDLK_ESCAPE)
             {
                 game->setState(Game::TITLE);
+            }
+            else if(e.key.keysym.sym == SDLK_F4)
+            {
+                game->toggleFullScreen();
             }
         }
         if(playing)

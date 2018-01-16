@@ -22,12 +22,6 @@ Game::~Game()
 
 bool Game::init()
 {
-    if(!config::loadConfigFile())
-    {
-        printf("Warning! Configuration file not loaded.\n");
-        config::setDefaultValues();
-    }
-
     if(SDL_Init(SDL_INIT_EVERYTHING) == -1)
     {
         printf("SDL not initialized: %s\n", SDL_GetError());
@@ -126,10 +120,6 @@ void Game::changeState()
                 state = new Title(renderer, currentState);
                 break;
 
-            case SETTINGS:
-                state = new Settings();
-                break;
-
             case MATCH:
                 state = new Match(renderer);
                 break;
@@ -156,4 +146,24 @@ void Game::logic()
 void Game::render()
 {
     state->render(this);
+}
+
+void Game::toggleFullScreen()
+{
+    config::toggleFullScreen();
+
+    if(config::fullscreen)
+    {
+        SDL_SetWindowSize(window, config::screenWidth, config::screenHeight);
+        SDL_SetWindowFullscreen(window, SDL_TRUE);
+        SDL_RenderPresent(renderer);
+        SDL_RenderClear(renderer);
+    }
+    else
+    {
+        SDL_SetWindowFullscreen(window, SDL_FALSE);
+        SDL_SetWindowSize(window, config::screenWidth, config::screenHeight);
+        SDL_RenderPresent(renderer);
+        SDL_RenderClear(renderer);
+    }
 }

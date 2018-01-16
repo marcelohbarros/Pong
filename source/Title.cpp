@@ -6,19 +6,15 @@
 enum buttons
 {
     PLAY_BUTTON,
-    SETTINGS_BUTTON,
     QUIT_BUTTON
 };
 
-Title::Title(SDL_Renderer *renderer, int previousState) : button{{73, 36}, {73, 55}, {73, 74}}
+Title::Title(SDL_Renderer *renderer, int previousState) : button{{73, 44}, {73, 66}}
 {
     background.loadTexture(renderer, "media/Title.png");
 
     button[PLAY_BUTTON].loadSelectedTexture(renderer, "media/PlayButtonSelected.png");
     button[PLAY_BUTTON].loadUnselectedTexture(renderer, "media/PlayButtonUnselected.png");
-
-    button[SETTINGS_BUTTON].loadSelectedTexture(renderer, "media/SettingsButtonSelected.png");
-    button[SETTINGS_BUTTON].loadUnselectedTexture(renderer, "media/SettingsButtonUnselected.png");
 
     button[QUIT_BUTTON].loadSelectedTexture(renderer, "media/QuitButtonSelected.png");
     button[QUIT_BUTTON].loadUnselectedTexture(renderer, "media/QuitButtonUnselected.png");
@@ -29,10 +25,6 @@ Title::Title(SDL_Renderer *renderer, int previousState) : button{{73, 36}, {73, 
         case Game::MATCH:
             button[PLAY_BUTTON].select();
             selectedButton = PLAY_BUTTON;
-            break;
-        case Game::SETTINGS:
-            button[SETTINGS_BUTTON].select();
-            selectedButton = SETTINGS_BUTTON;
             break;
     }
 
@@ -68,9 +60,6 @@ void Title::handleEvents(Game *game)
                 switch(selectedButton)
                 {
                     case PLAY_BUTTON:
-                        selectedButton = SETTINGS_BUTTON;
-                        break;
-                    case SETTINGS_BUTTON:
                         selectedButton = QUIT_BUTTON;
                         break;
                     case QUIT_BUTTON:
@@ -85,11 +74,8 @@ void Title::handleEvents(Game *game)
                     case PLAY_BUTTON:
                         selectedButton = QUIT_BUTTON;
                         break;
-                    case SETTINGS_BUTTON:
-                        selectedButton = PLAY_BUTTON;
-                        break;
                     case QUIT_BUTTON:
-                        selectedButton = SETTINGS_BUTTON;
+                        selectedButton = PLAY_BUTTON;
                         break;
                 }
             }
@@ -101,13 +87,14 @@ void Title::handleEvents(Game *game)
                     case PLAY_BUTTON:
                         nextState = Game::MATCH;
                         break;
-                    case SETTINGS_BUTTON:
-                        nextState = Game::SETTINGS;
-                        break;
                     case QUIT_BUTTON:
                         nextState = Game::QUIT;
                         break;
                 }
+            }
+            else if(e.key.keysym.sym == SDLK_F4)
+            {
+                game->toggleFullScreen();
             }
         }
     }
@@ -122,7 +109,6 @@ void Title::logic(Game *game)
         {
             Mix_PlayChannel(-1, changeSelection, 0);
             button[PLAY_BUTTON].unselect();
-            button[SETTINGS_BUTTON].unselect();
             button[QUIT_BUTTON].unselect();
             button[selectedButton].select();
         }
@@ -146,7 +132,6 @@ void Title::render(Game *game)
 
     background.render(game->getRenderer());
     button[PLAY_BUTTON].render(game->getRenderer());
-    button[SETTINGS_BUTTON].render(game->getRenderer());
     button[QUIT_BUTTON].render(game->getRenderer());
 
     SDL_RenderPresent(game->getRenderer());

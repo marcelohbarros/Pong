@@ -10,7 +10,7 @@ class Title : public State
 {
 private:
     ImageTexture background;
-    Button button[3];
+    Button button[2];
     int selectedButton;
     Mix_Chunk *changeSelection;
     Mix_Chunk *select;

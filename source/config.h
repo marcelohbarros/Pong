@@ -9,8 +9,7 @@ namespace config
     extern const int UNSCALED_SCREEN_WIDTH;
     extern const int UNSCALED_SCREEN_HEIGHT;
 
-    bool loadConfigFile();
-    void setDefaultValues();
+    void toggleFullScreen();
 }
 
 #endif // CONFIG_H_INCLUDED

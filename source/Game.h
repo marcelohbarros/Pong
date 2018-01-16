@@ -16,7 +16,7 @@ private:
     SDL_Renderer *renderer;
 
 public:
-    enum GameStates {NONE, TITLE, SETTINGS, MATCH, QUIT};
+    enum GameStates {NONE, TITLE, MATCH, QUIT};
 
     Game();
     ~Game();
@@ -29,6 +29,7 @@ public:
     void handleEvents();
     void logic();
     void render();
+    void toggleFullScreen();
 };
 
 #endif // GAME_H_INCLUDED

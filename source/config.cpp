@@ -1,3 +1,4 @@
+#include <SDL.h>
 #include "config.h"
 
 namespace config
@@ -9,14 +10,21 @@ namespace config
     const int UNSCALED_SCREEN_HEIGHT = 108;
 }
 
-bool config::loadConfigFile()
+void config::toggleFullScreen()
 {
-    return true;
-}
-
-void config::setDefaultValues()
-{
-    bool fullscreen = false;
-    int screenWidth = 960;
-    int screenHeight = 540;
+    if(!fullscreen)
+    {
+        SDL_DisplayMode current;
+        SDL_GetCurrentDisplayMode(0, &current);
+        screenWidth = current.w;
+        screenHeight = current.h;
+        fullscreen = true;
+    }
+    else
+    {
+        screenWidth = 960;
+        screenHeight = 540;
+        fullscreen = false;
+    }
+    return;
 }
