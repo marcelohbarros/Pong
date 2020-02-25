@@ -6,7 +6,6 @@
 #include "Game.h"
 #include "config.h"
 #include "Title.h"
-#include "Settings.h"
 #include "Match.h"
 
 Game::Game()
