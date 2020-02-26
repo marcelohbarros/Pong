@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/source",
+                "C:\\SDL\\SDL2\\include\\SDL2",
+                "C:\\SDL\\SDL2_image\\include\\SDL2",
+                "C:\\SDL\\SDL2_mixer\\include\\SDL2",
+                "C:\\SDL\\SDL2_ttf\\include\\SDL2"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

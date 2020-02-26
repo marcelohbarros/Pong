@@ -1,0 +1,51 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "build",
+            "command": "C:\\MinGW\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${workspaceFolder}\\source\\**.cpp",
+                "-IC:\\SDL\\SDL2\\include\\SDL2",
+                "-IC:\\SDL\\SDL2_image\\include\\SDL2",
+                "-IC:\\SDL\\SDL2_mixer\\include\\SDL2",
+                "-IC:\\SDL\\SDL2_ttf\\include\\SDL2",
+                "-LC:\\SDL\\SDL2\\lib",
+                "-LC:\\SDL\\SDL2_image\\lib",
+                "-LC:\\SDL\\SDL2_mixer\\lib",
+                "-LC:\\SDL\\SDL2_ttf\\lib",
+                "-w",
+                "'-Wl,-subsystem,windows'",
+                "-lmingw32",
+                "-lSDL2main",
+                "-lSDL2",
+                "-lSDL2_image",
+                "-lSDL2_mixer",
+                "-lSDL2_ttf",
+                "-o",
+                "${workspaceFolder}\\bin\\Pong.exe"
+            ],
+            "options": {
+                "cwd": "C:\\MinGW\\bin"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "test",
+            "command": "${workspaceFolder}\\bin\\Pong.exe",
+            "options": {
+                "cwd": "${workspaceFolder}\\bin"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
